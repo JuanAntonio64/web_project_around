@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explora el mundo segun los registros de Juan Antonio Morales Balderas.">
+    <meta name="author" content="Juan Antonio Morales Balderas">
+    <meta name="keywords" content="html, css, javascript">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Alrededor de los EE.UU.</title>
+</head>
+<body>
+    <div class="page">
+      <div class="popup">
+        <div class="popup__container">
+          <button type="button" class="popup__button popup__button_close">
+            <img src="./images/Close_Icon.svg" alt="close" class="popup__image-close" />
+          </button>
+          <form class="popup__form form-edit" novalidate>
+            <h2 class="popup__subtitle">Editar perfil</h2>
+            <fieldset class="popup__content">
+              <label class="popup__field">
+                <input
+                  type="text"
+                  class="popup__input popup__input_name"
+                  placeholder="Nombre"
+                  minlength="2"
+                  maxlength="40"
+                  id="name-input"
+                  required
+                />
+              </label>
+              <label class="popup__field">
+                <input
+                  type="text"
+                  class="popup__input popup__input_about"
+                  placeholder="Acerca de mi"
+                  minlength="2"
+                  maxlength="200"
+                  id="about-input"
+                  required
+                />
+              </label>
+              <button type="submit" class="popup__button popup__button_save">
+                Guardar
+              </button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+
+      <header class="header">
+        <img src="./images/Vector.svg" alt="logo-page" class="header__image" />
+      </header>
+
+      <main class="main">
+        <section class="main__profile">
+          <div class="main__content-image">
+            <img src="./images/image.svg" alt="profile-image" class="main__profile-image" />
+          </div>
+          <div class="main__content-paragraph">
+            <p class="main__paragraph main__paragraph_name">Juan Antonio Morales Balderas</p>
+            <p class="main__paragraph main__paragraph_job">Programador</p>
+            <button type="button" class="main__button main__button_edit">
+              <img src="./images/Edit_Icon.svg" alt="edit" class="popup__image-edit" />
+            </button>
+          </div>
+          <button type="button" class="main__button main__button_add">
+            <img src="./images/Add_Icon.svg" alt="add" class="popup__image-add" />
+          </button>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p class="footer__copyright">&#x00a9; 2025 Around The U.S.</p>
+      </footer>
+  <script type="module" src="./pages/index.js"></script>
+</body>
+</html>
