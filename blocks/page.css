@@ -1,6 +1,6 @@
 body {
   background-color: #000;
-  font-family: "InterVariable", sans-serif;
+  font-family: 'InterVariable', inter;
 }
 
 .page {
@@ -8,7 +8,7 @@ body {
   margin: auto;
   background-color: #000;
   color: #ffffff;
-  font-family: "InterVariable", sans-serif;
+  font-family: 'InterFotmat', inter;
   font-size: 16px;
   line-height: 20px;
 }
