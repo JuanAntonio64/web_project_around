@@ -12,12 +12,12 @@
 </head>
 <body>
     <div class="page">
-      <div class="popup">
+      <div class="popup" id="popup-edit">
         <div class="popup__container">
-          <button type="button" class="popup__button popup__button_close">
+          <button type="button" class="popup__button popup__button_close" id="close-button-edit">
             <img src="./images/Close_Icon.svg" alt="close" class="popup__image-close" />
           </button>
-          <form class="popup__form form-edit" novalidate>
+          <form class="popup__form popup__form-edit" novalidate>
             <h2 class="popup__subtitle">Editar perfil</h2>
             <fieldset class="popup__content">
               <label class="popup__field">
@@ -50,11 +50,60 @@
         </div>
       </div>
 
+      <div class="popup" id="popup-add">
+        <div class="popup__container">
+          <button type="button" class="popup__button popup__button_close" id="close-button-add">
+            <img src="./images/Close_Icon.svg" alt="close" class="popup__image-close" />
+          </button>
+          <form class="popup__form popup__form-add" novalidate>
+            <h2 class="popup__subtitle">Nuevo lugar</h2>
+            <fieldset class="popup__content">
+              <label class="popup__field">
+                <input
+                  type="text"
+                  class="popup__input popup__input_title"
+                  placeholder="Titulo"
+                  minlength="2"
+                  maxlength="40"
+                  id="title-input"
+                  required
+                />
+              </label>
+              <label class="popup__field">
+                <input
+                  type="text"
+                  class="popup__input popup__input_url"
+                  placeholder="Enlace de la imagen"
+                  minlength="2"
+                  maxlength="200"
+                  id="url-input"
+                  required
+                />
+              </label>
+              <button type="submit" class="popup__button popup__button_save">
+                Guardar
+              </button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+
+      <div class="popup" id="popup-image">
+        <div class="popup__container">
+          <button type="button" class="popup__button popup__button_close" id="close-button-image">
+            <img src="./images/Close_Icon.svg" alt="close" class="popup__image-close" />
+          </button>
+          <img src="" alt="popup-image" class="popup__image-modal" />
+          <h2 class="popup__caption"></h2>
+        </div>
+      </div>
+
       <header class="header">
         <img src="./images/Vector.svg" alt="logo-page" class="header__image" />
       </header>
 
       <main class="main">
+
         <section class="main__profile">
           <div class="main__content-image">
             <img src="./images/image.jpg" alt="profile-image" class="main__profile-image" />
@@ -71,63 +120,24 @@
           </button>
         </section>
         
-        <section class="gallery">
-          <article class="card">
-            <img src="images/Image_1.jpg" alt="Valle de Yosemite" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Valle de Yosemite</h2>
-              <button class="card__like-button">
-                <img src="./images/hearth.svg" alt="card-image" class="card-image" />
-              </button>
-            </div>
-          </article>
-          <article class="card">
-            <img src="images/Image_2.svg" alt="Lago Louise" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Lago Louise</h2>
-              <button class="card__like-button">
-                <img src="./images/hearth.svg" alt="card-image" class="card-image" />
-              </button>
-            </div>
-          </article>
-          <article class="card">
-            <img src="images/Image_3.svg" alt="Montañas Calvas" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Montañas Calvas</h2>
-              <button class="card__like-button">
-                <img src="./images/hearth.svg" alt="card-image" class="card-image" />
-              </button>
-            </div>
-          </article>
-          <article class="card">
-            <img src="images/Image_4.jpg" alt="Latemar" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Latemar</h2>
-              <button class="card__like-button">
-                <img src="./images/hearth.svg" alt="card-image" class="card-image" />
-              </button>
-            </div>
-          </article>
-          <article class="card">
-            <img src="images/Image_5.jpg" alt="Vanoise National Park" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Vanois National Park </h2>
-              <button class="card__like-button">
-                <img src="./images/hearth.svg" alt="card-image" class="card-image" />
-              </button>
-            </div>
-          </article>
-          <article class="card">
-            <img src="images/Image_6.jpg" alt="Lago di Braies" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Lago di Braies</h2>
-              <button class="card__like-button">
-                <img src="./images/hearth.svg" alt="card-image" class="card-image" />
-              </button>
-            </div>
-          </article>
-        </section>
+        <section class="cards"></section>
+
       </main>
+      </div>
+      <template class="template-card">
+        <div class="card">
+          <img src="images/Image_1.jpg" alt="Valle de Yosemite" class="card__image">
+          <button class="card__trash-button" id="trash-button">
+            <img src="./images/Trash.png" alt="trash" class="card-image" id="trash-image" />
+          </button>
+          <div class="card__info">
+             <h2 class="card__title"></h2>
+             <button class="card__like-button" id="like-button">
+               <img src="./images/hearth.svg" alt="image" class="card-image" id="card-image" />
+             </button>
+           </div>
+        </div>     
+      </template>
 
       <footer class="footer">
         <p class="footer__copyright">&#x00a9; 2025 Around The U.S.</p>

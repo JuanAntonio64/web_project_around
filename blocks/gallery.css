@@ -1,6 +1,6 @@
 
 /* Galería con 3 columnas */
-.gallery {
+.cards {
   display: grid;
   grid-template-columns: repeat(3, 282px);
   gap: 20px;
@@ -10,6 +10,7 @@
 
 /* Tarjeta con tamaño fijo */
 .card {
+  position: relative; /* <-- Añade esto */
   width: 282px;
   height: 361px;
   background-color: #1e1e1e;
@@ -57,9 +58,28 @@
   cursor: pointer;
 }
 
+.card__like-button:hover {
+  opacity: 0.5;
+}
+
+.card__trash-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.card__trash-button:hover {
+  opacity: 0.5;
+}
+
+
 
 @media screen and (min-width: 320px) and (max-width: 584px) {
-  .gallery {
+  .cards {
     grid-template-columns: 1fr;
     gap: 16px;
     padding: 0 16px;
@@ -88,11 +108,38 @@
     width: 18px;
     height: 18px;
   }
+
+.card__like-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.card__like-button:hover {
+  opacity: 0.5;
+}
+
+.card__trash-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.card__trash-button:hover {
+  opacity: 0.5;
+}
+
+
 }
 
 
 @media screen and (min-width: 585px) and (max-width: 880px) {
-  .gallery {
+  .cards {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     padding: 0 32px;
@@ -121,4 +168,30 @@
     width: 20px;
     height: 20px;
   }
+
+.card__like-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.card__like-button:hover {
+  opacity: 0.5;
+}
+
+.card__trash-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.card__trash-button:hover {
+  opacity: 0.5;
+}
+
 }
