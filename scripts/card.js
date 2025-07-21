@@ -1,8 +1,9 @@
 export class Card {
-  constructor(title, link, templateSelector) {
+  constructor(title, link, templateSelector, handleCardClick) {
     this._title = title;
     this._link = link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -26,14 +27,7 @@ export class Card {
     });
 
     image.addEventListener('click', () => {
-      const popupImage = document.querySelector('#popup-image');
-      const popupImageElement = popupImage.querySelector('.popup__image-modal');
-      const popupImageCaption = popupImage.querySelector('.popup__caption');
-
-      popupImageElement.src = this._link;
-      popupImageElement.alt = this._title;
-      popupImageCaption.textContent = this._title;
-      popupImage.classList.add('popup_opened');
+      this._handleCardClick(this._title, this._link);
     });
   }
 
