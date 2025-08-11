@@ -1,7 +1,11 @@
+import { api } from './Api.js';
+
 export class Card {
-  constructor(title, link, templateSelector, handleCardClick) {
+  constructor(title, link, _id, owner, templateSelector, handleCardClick) {
     this._title = title;
     this._link = link;
+    this._id = _id;
+    this._owner = owner;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
   }
