@@ -65,31 +65,44 @@ class Api {
         });
     }
 
-    // likeCard(cardId) {
-    //     return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
-    //     headers: this.headers,
-    //     method: 'PUT'
-    //     })
-    //     .then(res => {
-    //     if (res.ok) {
-    //         return res.json();
-    //     }
-    //     return Promise.reject(`Error: ${res.status}`);
-    //     });
-    // }
+    likeCard(cardId) {
+        return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+        headers: this.headers,
+        method: 'PUT'
+        })
+        .then(res => {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+        });
+    }
 
-    // deleteLikeCard(cardId) {
-    //     return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
-    //     headers: this.headers,
-    //     method: 'DELETE'
-    //     })
-    //     .then(res => {
-    //     if (res.ok) {
-    //         return res.json();
-    //     }
-    //     return Promise.reject(`Error: ${res.status}`);
-    //     });
-    // }
+    deleteLikeCard(cardId) {
+        return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+        headers: this.headers,
+        method: 'DELETE'
+        })
+        .then(res => {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+        });
+    }
+
+    deleteCard(cardId) {
+        return fetch(`${this.baseUrl}/cards/${cardId}`, {
+        headers: this.headers,
+        method: 'DELETE'
+        })
+        .then(res => {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+        });
+    }
 
 
   // otros métodos para trabajar con la API

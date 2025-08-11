@@ -35,6 +35,24 @@ import {
 const popupWithImage = new PopupWithImage('#popup-image');
 popupWithImage.setEventListeners();
 
+  const userInfo = new UserInfo({
+    nameSelector: '.main__paragraph_name',
+    jobSelector: '.main__paragraph_job'
+  });
+
+  let currentUserId = null;
+  api.getUserInfo()
+  .then((userData) => {
+    currentUserId = userData._id;
+    userInfo.setUserInfo({
+      name: userData.name,
+      job: userData.about
+    });
+  })
+  .catch((err) => {
+    console.error('Error al obtener la información del usuario:', err);
+  });
+
 api.getInitialCards()
   .then((initialCards) => {
     const cardSection = new Section({
@@ -45,40 +63,47 @@ api.getInitialCards()
         cardData.link,
         cardData._id,
         cardData.owner,
+        cardData.isLiked,
+        currentUserId,
         templateSelector,
-        (title, link) => popupWithImage.open(title, link)  
+        (title, link) => popupWithImage.open(title, link),
+        (cardId, isLiked, likeImage) => {
+          if (!isLiked) {
+            api.likeCard(cardId)
+              .then(updatedCard => {
+                card._isLiked = true;  // actualizar propiedad
+                card.updateLikeIcon(likeImage, true);
+              })
+              .catch(err => console.error('Error al dar like:', err));
+          } else {
+            api.deleteLikeCard(cardId)
+              .then(updatedCard => {
+                card._isLiked = false; // actualizar propiedad
+                card.updateLikeIcon(likeImage, false);
+              })
+              .catch(err => console.error('Error al quitar like:', err));
+          }
+        },
+          (cardId, cardElement) => {
+          api.deleteCard(cardId)
+            .then(() => {
+              cardElement.remove();
+            })
+            .catch(err => console.error('Error al eliminar tarjeta:', err));
+        }
       );
 
       const cardElement = card.generateCard();
-      cardSection.addItem(cardElement); 
+      cardSection.addItem(cardElement);
     }
+
   }, '.cards');
 
   cardSection.renderItems();  
   
   //-------------------------------------------------------------------------
 
-  const userInfo = new UserInfo({
-    nameSelector: '.main__paragraph_name',
-    jobSelector: '.main__paragraph_job'
-  });
-
-  api.getUserInfo()
-  .then((userData) => {
-    userInfo.setUserInfo({
-      name: userData.name,
-      job: userData.about
-    });
-  })
-  .catch((err) => {
-    console.error('Error al obtener la información del usuario:', err);
-  });
-
-
-  //-------------------------------------------------------------------------
-
-
-const popupEditForm = new PopupWithForm('#popup-edit', (formData) => {
+  const popupEditForm = new PopupWithForm('#popup-edit', (formData) => {
   const name = formData['name-input'];
   const job = formData['about-input'];
 
@@ -123,8 +148,34 @@ closeButtonEdit.addEventListener('click', () => popupEditForm.close());
         createdCard.link,
         createdCard._id,
         createdCard.owner,
+        createdCard.isLiked || false,
+        currentUserId,
         templateSelector,
-        (title, link) => popupWithImage.open(title, link)
+        (title, link) => popupWithImage.open(title, link),
+        (cardId, isLiked, likeImage) => {
+          if (!isLiked) {
+            api.likeCard(cardId)
+              .then(updatedCard => {
+                card._isLiked = true;
+                card.updateLikeIcon(likeImage, true);
+              })
+              .catch(err => console.error('Error al dar like:', err));
+          } else {
+            api.deleteLikeCard(cardId)
+              .then(updatedCard => {
+                card._isLiked = false;
+                card.updateLikeIcon(likeImage, false);
+              })
+              .catch(err => console.error('Error al quitar like:', err));
+          }
+        },
+          (cardId, cardElement) => {
+          api.deleteCard(cardId)
+            .then(() => {
+              cardElement.remove();
+            })
+            .catch(err => console.error('Error al eliminar tarjeta:', err));
+        }
       );
       const cardElement = card.generateCard();
       cardSection.addItem(cardElement);
@@ -133,6 +184,7 @@ closeButtonEdit.addEventListener('click', () => popupEditForm.close());
     .catch((err) => {
       console.error('Error creating card:', err);
     });
+
   });
 
   popupAddForm.setEventListeners();
@@ -157,6 +209,14 @@ const validatorAdd = new FormValidator(config, formAdd);
 validatorEdit.enableValidation();
 validatorAdd.enableValidation();
 setPopupListeners();
+
+
+
+
+
+
+
+
 
 closeButtonImage.addEventListener('click', () => popupWithImage.close());
 
