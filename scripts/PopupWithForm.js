@@ -6,6 +6,17 @@ export class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popup.querySelector('form');
     this._inputList = Array.from(this._form.querySelectorAll('input'));
+    this._submitButton = this._popup.querySelector('.popup__button_save'); 
+    this._submitButtonDefaultText = this._submitButton.textContent;
+  }
+
+  // Cambia el texto del botón durante la carga
+  renderLoading(isLoading, loadingText = 'Guardando...') {
+    if (isLoading) {
+      this._submitButton.textContent = loadingText;
+    } else {
+      this._submitButton.textContent = this._submitButtonDefaultText;
+    }
   }
 
   // Obtiene los valores actuales de los inputs del formulario

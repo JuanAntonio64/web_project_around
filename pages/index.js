@@ -15,11 +15,13 @@ import {
   popupEdit,
   popupAdd,
   popupImage,
+  popupDelete,
   openButtonEdit,
   openButtonAdd,
   closeButtonEdit,
   closeButtonAdd,
   closeButtonImage,
+  closeDeleteButton,
   nameInput,
   aboutInput,
   titleInput,
@@ -34,11 +36,15 @@ import {
 
 const popupWithImage = new PopupWithImage('#popup-image');
 popupWithImage.setEventListeners();
+let cardToDelete = { id: null, element: null };
+
 
   const userInfo = new UserInfo({
     nameSelector: '.main__paragraph_name',
-    jobSelector: '.main__paragraph_job'
+    jobSelector: '.main__paragraph_job',
+    avatarSelector: '.main__profile-image'
   });
+
 
   let currentUserId = null;
   api.getUserInfo()
@@ -48,10 +54,24 @@ popupWithImage.setEventListeners();
       name: userData.name,
       job: userData.about
     });
+    userInfo.setUserAvatar(userData.avatar);
   })
   .catch((err) => {
     console.error('Error al obtener la información del usuario:', err);
   });
+
+const closeButtonDelete = document.querySelector('#close-button-delete');
+const deletePopup = new PopupWithForm('#popup-delete', () => {
+  api.deleteCard(cardToDelete.id)
+    .then(() => {
+      cardToDelete.element.remove();
+      cardToDelete = { id: null, element: null }; 
+      deletePopup.close();
+    })
+    .catch(err => console.error('Error al eliminar tarjeta:', err));
+});
+deletePopup.setEventListeners();
+
 
 api.getInitialCards()
   .then((initialCards) => {
@@ -85,12 +105,9 @@ api.getInitialCards()
           }
         },
           (cardId, cardElement) => {
-          api.deleteCard(cardId)
-            .then(() => {
-              cardElement.remove();
-            })
-            .catch(err => console.error('Error al eliminar tarjeta:', err));
-        }
+            cardToDelete = { id: cardId, element: cardElement };
+            deletePopup.open();
+          }
       );
 
       const cardElement = card.generateCard();
@@ -106,6 +123,7 @@ api.getInitialCards()
   const popupEditForm = new PopupWithForm('#popup-edit', (formData) => {
   const name = formData['name-input'];
   const job = formData['about-input'];
+  popupEditForm.renderLoading(true); 
 
   api.editProfile(name, job)
     .then((updatedUser) => {
@@ -117,9 +135,11 @@ api.getInitialCards()
     })
     .catch((err) => {
       console.error('Error updating profile:', err);
+    })
+    .finally(() => {
+      popupEditForm.renderLoading(false); 
     });
 });
-
 popupEditForm.setEventListeners();
 
 openButtonEdit.addEventListener('click', () => {
@@ -140,6 +160,7 @@ closeButtonEdit.addEventListener('click', () => popupEditForm.close());
   const popupAddForm = new PopupWithForm('#popup-add', (formData) => {
   const name = formData['title-input'];
   const link = formData['url-input'];
+  popupAddForm.renderLoading(true); 
 
   api.createCard(name, link)
     .then((createdCard) => {
@@ -170,12 +191,9 @@ closeButtonEdit.addEventListener('click', () => popupEditForm.close());
           }
         },
           (cardId, cardElement) => {
-          api.deleteCard(cardId)
-            .then(() => {
-              cardElement.remove();
-            })
-            .catch(err => console.error('Error al eliminar tarjeta:', err));
-        }
+            cardToDelete = { id: cardId, element: cardElement };
+            deletePopup.open();
+          }
       );
       const cardElement = card.generateCard();
       cardSection.addItem(cardElement);
@@ -183,6 +201,9 @@ closeButtonEdit.addEventListener('click', () => popupEditForm.close());
     })
     .catch((err) => {
       console.error('Error creating card:', err);
+    })
+    .finally(() => {
+      popupAddForm.renderLoading(false); 
     });
 
   });
@@ -199,7 +220,42 @@ closeButtonEdit.addEventListener('click', () => popupEditForm.close());
   closeButtonAdd.addEventListener('click', () => popupAddForm.close());
 
 
-}).catch((err) => { 
+  //-------------------------------------------------------------------------
+
+  const popupEditProfile = new PopupWithForm('#popup-editProfile', (formData) => {
+  const urlProfile = formData['profile-input'];
+  popupEditProfile.renderLoading(true); 
+
+  api.setUserAvatar(urlProfile)
+    .then((updatedUser) => {
+      userInfo.setUserAvatar(updatedUser.avatar); 
+      popupEditProfile.close();
+    })
+    .catch((err) => {
+      console.error('Error cambiando foto de perfil:', err);
+    })
+    .finally(() => {
+      popupEditProfile.renderLoading(false); 
+    });
+  });
+  popupEditProfile.setEventListeners();
+
+
+// Botones de abrir/cerrar
+const openButtonEditProfile = document.querySelector('#open-button-editProfile');
+const closeButtonEditProfile = document.querySelector('#close-button-editProfile');
+
+openButtonEditProfile.addEventListener('click', () => {
+  popupEditProfile.open();
+});
+
+closeButtonEditProfile.addEventListener('click', () => {
+  popupEditProfile.close();
+});
+
+
+})
+.catch((err) => { 
     console.error('Error fetching initial cards:', err);
   });
 
@@ -209,14 +265,6 @@ const validatorAdd = new FormValidator(config, formAdd);
 validatorEdit.enableValidation();
 validatorAdd.enableValidation();
 setPopupListeners();
-
-
-
-
-
-
-
-
 
 closeButtonImage.addEventListener('click', () => popupWithImage.close());
 

@@ -96,6 +96,33 @@
         </div>
       </div>
 
+      <div class="popup" id="popup-editProfile">
+        <div class="popup__container">
+          <button type="button" class="popup__button popup__button_close" id="close-button-editProfile">
+            <img src="./images/Close_Icon.svg" alt="close" class="popup__image-close" />
+          </button>
+          <form class="popup__form popup__form-add" novalidate>
+            <h2 class="popup__subtitle">Cambiar foto de perfil</h2>
+            <fieldset class="popup__content">
+              <label class="popup__field">
+                <input
+                  type="url"
+                  class="popup__input popup__input_url"
+                  placeholder="URL de la foto de perfil"
+                  id="profile-input"
+                  name="profile-input"
+                  required
+                />
+                <span class="popup__input-error title-input-error"></span>
+              </label>
+              <button type="submit" class="popup__button popup__button_save">
+                Guardar
+              </button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+
       <div class="popup" id="popup-image">
         <div class="popup__container">
           <button type="button" class="popup__button popup__button_close" id="close-button-image">
@@ -103,6 +130,24 @@
           </button>
           <img src=" " alt="popup-image" class="popup__image-modal" />
           <h2 class="popup__caption"></h2>
+        </div>
+      </div>
+
+      <div class="popup" id="popup-delete">
+        <div class="popup__container">
+          <button type="button" class="popup__button popup__button_close" id="close-button-delete">
+            <img src="./images/Close_Icon.svg" alt="close" class="popup__image-close" />
+          </button>
+          <form class="popup__form popup__form-delete" novalidate>
+            <fieldset class="popup__content">
+              <label class="popup__field">
+                <h2 class="popup__subtitle">¿Estas seguro/a?</h2>
+                <button type="submit" class="popup__button popup__button_save">
+                  Si
+                </button>
+              </label>
+            </fieldset> 
+          </form>
         </div>
       </div>
 
@@ -114,7 +159,9 @@
 
         <section class="main__profile">
           <div class="main__content-image">
-            <img src="./images/image.jpg" alt="profile-image" class="main__profile-image" />
+            <button type="button" class="main__button main__button_editProfile" id="open-button-editProfile">
+              <img src="#" alt="profile-image" class="main__profile-image" />
+            </button>
           </div>
           <div class="main__content-paragraph">
             <p class="main__paragraph main__paragraph_name"></p>

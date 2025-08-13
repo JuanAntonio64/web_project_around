@@ -68,6 +68,10 @@
   opacity: 0.5;
 }
 
+.main__button_editProfile:hover {
+  background: url("../images/Profile_Icon.svg") no-repeat center;
+}
+
 .main__button_edit {
   width: 24px;
   height: 24px;

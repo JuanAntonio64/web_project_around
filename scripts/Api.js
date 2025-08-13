@@ -104,6 +104,22 @@ class Api {
         });
     }
 
+    setUserAvatar(avatarUrl) {
+        return fetch(`${this.baseUrl}/users/me/avatar`, {
+        headers: this.headers,
+        method: 'PATCH',
+        body: JSON.stringify({
+            avatar: avatarUrl
+        })
+})
+        .then(res => {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+        });
+    }
+
 
   // otros métodos para trabajar con la API
 }

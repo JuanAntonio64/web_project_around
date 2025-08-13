@@ -28,6 +28,7 @@ export const formAdd = document.querySelector('.popup__form-add');
 export const popupEdit = document.querySelector('#popup-edit');
 export const popupAdd = document.querySelector('#popup-add');
 export const popupImage = document.querySelector('#popup-image');
+export const popupDelete = document.querySelector('#popup-delete');
 
 export const openButtonEdit = document.querySelector('.main__button_edit');
 export const openButtonAdd = document.querySelector('.main__button_add');
@@ -35,6 +36,7 @@ export const openButtonAdd = document.querySelector('.main__button_add');
 export const closeButtonEdit = document.querySelector('#close-button-edit');
 export const closeButtonAdd = document.querySelector('#close-button-add');
 export const closeButtonImage = document.querySelector('#close-button-image');
+export const closeDeleteButton = document.querySelector('#close-button-delete');
 
 export const nameInput = document.querySelector('#name-input');
 export const aboutInput = document.querySelector('#about-input');
